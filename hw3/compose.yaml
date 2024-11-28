@@ -1,0 +1,56 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: front
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html-templ/:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - monga1
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - "25000:6379"
+    volumes:
+      - ./redisdata:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+  python:
+    build:
+      context: .
+      dockerfile: ./python/Dockerfile
+    ports:
+      - "4000:5000"
+    volumes:
+      - ./python/src:/code
+  monga1:
+    image: mongo:latest
+    volumes:
+    - mongoDBvolume:/data/db
+    ports:
+    - "30001:27017"
+  monga2:
+    image: mongo:latest
+    volumes:
+    - mongoDBvolume:/data/testdb
+    ports:
+    - "30002:27017"
+networks:
+  monga1:
+    driver: bridge
+volumes:
+  mongoDBvolume:
+    driver: local
