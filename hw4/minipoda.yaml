@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+  labels :
+    env  : development
+    app  : apache2
+    tier : frontend
+    owner: AlexanderGorshkov
+spec:
+  containers:
+    - name : front
+      image: httpd:latest
+      ports:
+        - containerPort: 80
