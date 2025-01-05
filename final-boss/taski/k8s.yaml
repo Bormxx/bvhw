@@ -1,0 +1,31 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: taski-deployment
+  labels:
+    app  : taski-app
+    env  : dev
+    owner: AlexanderGorshkov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: bvhw
+  template:
+    metadata:
+      labels:
+        project: bvhw
+    spec:
+      containers:
+        - name: backend
+          image: cr.yandex/$REGISTRY_ID/taski-backend:v1
+          ports:
+            - containerPort: 8000
+        - name: frontend
+          image: cr.yandex/$REGISTRY_ID/taski-frontend:v1
+          ports:
+            - containerPort: 3000
+        - name: forw
+          image: cr.yandex/$REGISTRY_ID/taski-forw:v1
+          ports:
+            - containerPort: 80

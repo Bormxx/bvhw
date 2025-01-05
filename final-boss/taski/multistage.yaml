@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: cr.yandex/crpl3bfv2nkv0qrn3ei5/taski-backend:v1
+    build: 
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "8000:8000"
+  frontend:
+    image: cr.yandex/crpl3bfv2nkv0qrn3ei5/taski-frontend:v1
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
