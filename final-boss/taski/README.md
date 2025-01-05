@@ -63,7 +63,7 @@ kubectl cluster-info
 yc container registry create --name <имя вашего реестра>
 ```
 Вы получите такой вывод. 
-<p align="center"><img src="./images/registry.png" alt="Создание реестра хранения образов docker-контейнеров."></p>
+<p align="center"><img src="./image/registry.png" alt="Создание реестра хранения образов docker-контейнеров."></p>
 
 Скопируйте и запишите в свой текстовый файл id реестра.
 
@@ -140,17 +140,17 @@ kubectl describe service
 
 Откройте Браузер интернета и в адресной строке вставьте этот адрес, нажмите ввод.
 У вас должен открытся сайт проекта Taski.
-<p align="center"><img src="./images/taski-site.png" alt="Сайт проекта Taski."></p>
+<p align="center"><img src="./image/taski-site.png" alt="Сайт проекта Taski."></p>
 
 Проверьте, что задания можно создавать.
-<p align="center"><img src="./images/taski-proved.png" alt="Проверка создания задания."></p>
+<p align="center"><img src="./image/taski-proved.png" alt="Проверка создания задания."></p>
 
 На этом развёртывание проекта Taski в облачном кластере Yandex.Cloud завершено.
 
 ### Заключение.
 Вы развернули в облаке Yandex.Cloud проект Taski с помощью Kubernetes.
 Размеры образов получились следующими:
-<p align="center"><img src="./images/images-sizes.png" alt="Размеры образов docker-контейнеров."></p>
+<p align="center"><img src="./image/images-sizes.png" alt="Размеры образов docker-контейнеров."></p>
 
 ### Дополнительная информация.
 Не забудьте удалить с локального компьютера неиспользуемые части проекта Taski.
