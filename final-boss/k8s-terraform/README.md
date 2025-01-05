@@ -37,9 +37,9 @@ compute-default-zone: ru-central1-b
 yc iam create-token
 ```
 После ввода команды вы должны получить примерно такой вывод:
-<p align="center"><img src="/images/token1.png" alt="Получение IAM-токена."></p>
+<p align="center"><img src="./images/token1.png" alt="Получение IAM-токена."></p>
 Выделите IAM-токен и скопируйте его. IAM-токен - это выделенная часть на изображении:
-<p align="center"><img src="/images/token2.png" alt="Выделенный IAM-токен."></p>
+<p align="center"><img src="./images/token2.png" alt="Выделенный IAM-токен."></p>
 
 Запишите IAM-токен в свой текстовый файл. **Но помните, этот токен работает только 12 часов.** Потом нужно получать новый IAM-токен. Поэтому, команду *yc iam create-token* можете записать рядом.
 
@@ -142,7 +142,7 @@ scale_policy {
 ```
 
 В данной конфигурации стоимость эксплуатации одного узла в месяц получилась относительно небольшой.
-<p align="center"><img src="/images/costs.png" alt="Оценочная стоимость и параметры производительности."></p>
+<p align="center"><img src="./images/costs.png" alt="Оценочная стоимость и параметры производительности."></p>
 
 
 ### Дополнительная информация.
