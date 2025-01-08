@@ -48,6 +48,6 @@ jobs:
           if [ "$(docker ps -a -q)" ]; then
             sudo docker rm $(docker ps -a -q) &> /dev/null
           fi
-          sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:frontend${{ github.sha }} && \
-          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:backend${{ github.sha }} && \
+          sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:frontend${{ github.sha }}
+          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:backend${{ github.sha }}
           sudo docker run -dp 80:80 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:nginx${{ github.sha }}
