@@ -18,7 +18,7 @@ jobs:
       
       - name: Build and push Docker image to Yandex.Cloud Container Registry
         env:
-          CR_REGISTRY: crpcmdivflbbl644gkoh
+          CR_REGISTRY: crp2s7naad8mvn5t5u8j
           CR_REPOSITORY: exchange
           IMAGE_TAG: ${{ github.sha }}
         run: |
