@@ -1,0 +1,30 @@
+name: "CI/CD deploy"
+on:
+  push:
+    branches:
+      - main
+    paths: 
+      - 'final-boss/taski/frontend/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Yandex.Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/login-cr@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
+      
+      - name: Build and push Docker image to Yandex.Cloud Container Registry
+        env:
+          CR_REGISTRY: ${{ steps.login-cr.outputs.cr-registry }}
+          CR_REPOSITORY: ${{ secrets.CR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $CR_REGISTRY/$CR_REPOSITORY/frontend:$IMAGE_TAG ./frontend/Dockerfile
+          docker push $CR_REGISTRY/$CR_REPOSITORY/frontend:$IMAGE_TAG
+          docker build -t $CR_REGISTRY/$CR_REPOSITORY/backend:$IMAGE_TAG ./backend/Dockerfile
+          docker push $CR_REGISTRY/$CR_REPOSITORY/backend:$IMAGE_TAG
+          docker docker build -t $CR_REGISTRY/$CR_REPOSITORY/nginx:$IMAGE_TAG ./nginx/Dockerfile
+          docker push $CR_REGISTRY/$CR_REPOSITORY/nginx:$IMAGE_TAG
