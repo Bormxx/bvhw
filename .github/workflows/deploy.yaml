@@ -16,7 +16,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
       
-      - name: Build and push Frontend to Yandex.Cloud Container Registry
+      - name: Build and push Docker image to Yandex.Cloud Container Registry
         env:
           CR_REGISTRY: crp2s7naad8mvn5t5u8j
           CR_REPOSITORY: exchange
@@ -24,20 +24,8 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:frontend$IMAGE_TAG ./final-boss/taski/frontend/
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:frontend$IMAGE_TAG
-      - name: Build and push Backend to Yandex.Cloud Container Registry
-        env:
-          CR_REGISTRY: crp2s7naad8mvn5t5u8j
-          CR_REPOSITORY: exchange
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:backend$IMAGE_TAG ./final-boss/taski/backend/
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:backendIMAGE_TAG
-      - name: Build and push Nginx to Yandex.Cloud Container Registry
-        env:
-          CR_REGISTRY: crp2s7naad8mvn5t5u8j
-          CR_REPOSITORY: exchange
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:backend$IMAGE_TAG
           docker docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:nginx$IMAGE_TAG ./final-boss/taski/nginx/
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:nginx$IMAGE_TAG
 
@@ -60,6 +48,6 @@ jobs:
           if [ "$(docker ps -a -q)" ]; then
             sudo docker rm $(docker ps -a -q) &> /dev/null
           fi
-          sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:frontend${{ github.sha }}
-          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:backend${{ github.sha }}
+          sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:frontend${{ github.sha }} && \
+          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:backend${{ github.sha }} && \
           sudo docker run -dp 80:80 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:nginx${{ github.sha }}
