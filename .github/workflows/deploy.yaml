@@ -16,16 +16,25 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
       
-      - name: Build and push Docker image to Yandex.Cloud Container Registry
-        env:
-          CR_REGISTRY: crpcmdivflbbl644gkoh
-          CR_REPOSITORY: exchange
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/frontend:$IMAGE_TAG ./final-boss/taski/frontend/
-          docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/frontend:$IMAGE_TAG
+      # - name: Build and push Docker image to Yandex.Cloud Container Registry
+      #   env:
+      #     CR_REGISTRY: crpcmdivflbbl644gkoh
+      #     CR_REPOSITORY: exchange
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/frontend:$IMAGE_TAG ./final-boss/taski/frontend/
+      #     docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/frontend:$IMAGE_TAG
+      #     docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/backend:$IMAGE_TAG ./final-boss/taski/backend/
+      #     docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/backend:$IMAGE_TAG
+      #     docker docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
+      #     docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/nginx:$IMAGE_TAG
 
-          # docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/backend:$IMAGE_TAG ./final-boss/taski/backend/
-          # docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/backend:$IMAGE_TAG
-          # docker docker build -t cr.yandex/$CR_REGISTRY/$IMAGE_TAG/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
-          # docker push cr.yandex/$CR_REGISTRY/$IMAGE_TAG/nginx:$IMAGE_TAG
+      - name: Deploy to VPC-Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 158.160.140.27
+          username: buka
+          key: ${{ secrets.VPC_SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          port: 22
+      
