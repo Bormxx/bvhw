@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Login to Yandex.Cloud Container Registry
-        id: login-cr
+        id: $YC_FOLDER_ID
         uses: yc-actions/yc-cr-login@v1
         with:
           yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
