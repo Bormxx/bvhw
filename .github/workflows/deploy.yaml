@@ -42,10 +42,10 @@ jobs:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
         run: |
           echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
-          # if [ "$(docker ps -q)" ]; then 
-          #   sudo docker kill $(docker ps -q) &> /dev/null
-          # fi
-          # if [ "$(docker ps -a -q)" ]; then
-          #   sudo docker rm $(docker ps -a -q) &> /dev/null
-          # fi
-          sudo docker run cr.yandex/$CR_REGISTRY/frontend:user$IMAGE_TAG cr.yandex
+          if [ "$(docker ps -q)" ]; then 
+            sudo docker kill $(docker ps -q) &> /dev/null
+          fi
+          if [ "$(docker ps -a -q)" ]; then
+            sudo docker rm $(docker ps -a -q) &> /dev/null
+          fi
+          sudo docker run cr.yandex/cr.yandex/crp2s7naad8mvn5t5u8j/frontend:user$IMAGE_TAG cr.yandex
