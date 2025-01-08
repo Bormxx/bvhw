@@ -2,7 +2,7 @@ name: "CI/CD deploy"
 on:
   push:
     branches:
-      - master
+      - main
     paths: 
       - 'final-boss/taski/frontend/**'
 jobs:
