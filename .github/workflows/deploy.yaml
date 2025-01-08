@@ -22,9 +22,9 @@ jobs:
           CR_REPOSITORY: ${{ secrets.CR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $CR_REPOSITORY/$IMAGE_TAG/frontend:$IMAGE_TAG ./final-boss/taski/frontend/Dockerfile
+          docker build -t $CR_REPOSITORY/$IMAGE_TAG/frontend:$IMAGE_TAG ./bvhw/final-boss/taski/frontend/Dockerfile
           docker push $CR_REPOSITORY/$IMAGE_TAG/frontend:$IMAGE_TAG
-          docker build -t $CR_REPOSITORY/$IMAGE_TAG/backend:$IMAGE_TAG ./final-boss/taski/backend/Dockerfile
+          docker build -t $CR_REPOSITORY/$IMAGE_TAG/backend:$IMAGE_TAG ./bvhw/final-boss/taski/backend/Dockerfile
           docker push $CR_REPOSITORY/$IMAGE_TAG/backend:$IMAGE_TAG
-          docker docker build -t $CR_REPOSITORY/$IMAGE_TAG/nginx:$IMAGE_TAG ./final-boss/taski/nginx/Dockerfile
+          docker docker build -t $CR_REPOSITORY/$IMAGE_TAG/nginx:$IMAGE_TAG ./bvhw/final-boss/taski/nginx/Dockerfile
           docker push $CR_REPOSITORY/$IMAGE_TAG/nginx:$IMAGE_TAG
