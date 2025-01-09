@@ -24,10 +24,10 @@ jobs:
         run: |
           docker build -t cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG ./final-boss/taski/frontend/
           docker push cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG
-        # docker build -t cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG ./final-boss/taski/backend/
-        # docker push cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG
-        # docker build -t cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
-        # docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
+          docker build -t cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG ./final-boss/taski/backend/
+          docker push cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG
+          docker build -t cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
+          docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
 
       - name: Deploy to VPC-Server
         uses: appleboy/ssh-action@master
@@ -49,5 +49,5 @@ jobs:
             sudo docker rm $(docker ps -a -q) &> /dev/null
           fi
           sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-        # sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
-        # sudo docker run -dp 80:80 cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
+          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
+          sudo docker run -dp 80:80 cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
