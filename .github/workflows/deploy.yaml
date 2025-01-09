@@ -32,7 +32,7 @@ jobs:
       - name: Deploy to VPC-Server
         uses: appleboy/ssh-action@master
         with:
-          host: 84.201.170.86
+          host: 51.250.46.25
           username: buka
           key: ${{ secrets.VPC_SSH_KEY }}
           port: 22
@@ -48,6 +48,6 @@ jobs:
           if [ "$(docker ps -a -q)" ]; then
             sudo docker rm $(docker ps -a -q) &> /dev/null
           fi
-          sudo docker run -dp 3000:3000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:frontend${{ github.sha }}
-          sudo docker run -dp 8000:8000 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:backend${{ github.sha }}
-          sudo docker run -dp 80:80 cr.yandex/crp2s7naad8mvn5t5u8j/exchange:nginx${{ github.sha }}
+          sudo docker run -dp 3000:3000 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:frontend${{ github.sha }}
+          sudo docker run -dp 8000:8000 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:backend${{ github.sha }}
+          sudo docker run -dp 80:80 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:nginx${{ github.sha }}
