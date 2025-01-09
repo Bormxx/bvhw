@@ -32,7 +32,7 @@ jobs:
       - name: Deploy to VPC-Server
         uses: appleboy/ssh-action@master
         with:
-          host: 51.250.37.138
+          host: 84.201.170.86
           username: buka
           key: ${{ secrets.VPC_SSH_KEY }}
           port: 22
