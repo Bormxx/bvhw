@@ -48,9 +48,9 @@ jobs:
           if [ "$(docker ps -a -q)" ]; then
             docker rm $(docker ps -a -q) &> /dev/null
           fi
-          sudo docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-          sudo docker run -p 3000:3000 -d cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-          sudo docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
-          sudo docker run -p 8000:8000 -d cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
-          sudo docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
-          sudo docker run -p 80:80 -d cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
+          docker run -p 3000:3000 -d cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
+          docker run -p 8000:8000 -d cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
+          docker run -p 80:80 -d cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
