@@ -30,47 +30,22 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
 
       - name: Deploy to VPC-Server
-        uses: appleboy/ssh-action@master
+        uses: actions/checkout@v3
         with:
           host: 84.201.144.189
           username: buka
           key: ${{ secrets.VPC_SSH_KEY }}
           port: 22
       
-      - name: Authenticate on VPC-Server
+      - name: Run command on VPC-Server
         env:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
-        run: echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
-
-      - name: Pull frontend on VPC-Server
-        run: docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-
-      - name: Run command on VPC-Server
-        run: docker run -p 3000:3000 -d cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-
-      # - name: Run command on VPC-Server
-      #   env:
-      #     OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
-      #   run: |
-      #     echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
-      #     docker run -p 8000:8000 -d cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
-
-      # - name: Run command on VPC-Server
-      #   env:
-      #     OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
-      #   run: |
-      #     echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
-      #     docker run -p 80:80 -d cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
-
-
-
-        # docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
-        # docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
-        # docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
-
-
-
-          
-          
-          
+        run: |
+          echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
+          docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
+          docker run -p 3000:3000 -d cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
+          docker run -p 8000:8000 -d cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
+          docker run -p 80:80 -d cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
 
