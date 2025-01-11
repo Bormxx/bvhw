@@ -7,3 +7,4 @@ RUN npm install
 COPY . .
 RUN npm run build
 CMD ["npx", "-y", "http-server", "-p", "3000", "/app/build"]
+EXPOSE 3000
