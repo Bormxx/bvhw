@@ -39,6 +39,7 @@ jobs:
         env:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
           script: |
+            echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
