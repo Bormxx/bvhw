@@ -37,7 +37,9 @@ jobs:
       #     key: ${{ secrets.VPC_SSH_KEY }}
       #     port: 22
       - name: Deploy to VPC-Server
-        run: ssh -i ${{ secrets.VPC_SSH_KEY }} buka@84.201.169.202 "mkdir ~/zopa"
+        env: 
+          ssh-key: ${{ secrets.VPC_SSH_KEY }}
+        run: ssh -i $ssh-key buka@84.201.169.202 "mkdir ~/zopa"
       # - name: Deploy to VPC-Server
       #   env:
       #     OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
