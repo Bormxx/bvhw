@@ -16,18 +16,18 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
       
-      - name: Build and push Docker image to Yandex.Cloud Container Registry
-        env:
-          CR_REGISTRY: crp2s7naad8mvn5t5u8j
-          CR_REPOSITORY: exchange
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG ./final-boss/taski/frontend/
-          docker push cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG
-          docker build -t cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG ./final-boss/taski/backend/
-          docker push cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG
-          docker build -t cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
-          docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
+      # - name: Build and push Docker image to Yandex.Cloud Container Registry
+      #   env:
+      #     CR_REGISTRY: crp2s7naad8mvn5t5u8j
+      #     CR_REPOSITORY: exchange
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -t cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG ./final-boss/taski/frontend/
+      #     docker push cr.yandex/$CR_REGISTRY/frontend:$IMAGE_TAG
+      #     docker build -t cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG ./final-boss/taski/backend/
+      #     docker push cr.yandex/$CR_REGISTRY/backend:$IMAGE_TAG
+      #     docker build -t cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG ./final-boss/taski/nginx/
+      #     docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
 
       - name: Connect to VPC-Server
         uses: appleboy/ssh-action@master
@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.VPC_SSH_KEY }}
           port: 22
       - name: Deploy to VPC-Server
-        run: ssh -i ${{ secrets.VPC_SSH_KEY }} buka@84.201.169.202 "docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }} && docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }} && docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}" && ssh buka@84.201.169.202 "docker run -p 3000:3000 -d cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }} && docker run -p 8000:8000 -d cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }} && docker run -p 80:80 --net=host -d cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}"
+        run: ssh -i ${{ secrets.VPC_SSH_KEY }} buka@84.201.169.202 "mkdir ~/zopa"
       # - name: Deploy to VPC-Server
       #   env:
       #     OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
