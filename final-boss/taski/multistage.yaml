@@ -15,3 +15,13 @@ services:
       - backend
     ports:
       - "3000:3000"
+  proxy:
+    image: cr.yandex/crpl3bfv2nkv0qrn3ei5/taski-proxy:v1
+    network_mode: "host"
+    build: 
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    depends_on:
+      - frontend
+    ports:
+      - "80:80"
