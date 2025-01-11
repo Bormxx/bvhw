@@ -30,7 +30,7 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/nginx:$IMAGE_TAG
 
       - name: Deploy to VPC-Server
-        uses: actions/checkout@v3
+        uses: appleboy/ssh-action@master
         with:
           host: 158.160.159.107
           username: buka
@@ -38,8 +38,7 @@ jobs:
           port: 22
         env:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
-          run-bash: |
-            echo $OAUTH_TOKEN|docker login --username oauth --password-stdin cr.yandex
+          script: |
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/frontend:${{ github.sha }}
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/backend:${{ github.sha }}
             docker pull cr.yandex/crp2s7naad8mvn5t5u8j/nginx:${{ github.sha }}
